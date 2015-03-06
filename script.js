@@ -3,7 +3,7 @@
 // Get entropy for a password (in bits)
 function getEntropy(password, symbols) {
 	// Length * Logarithm base 2 of possible symbols
-	var l = password.length();
+	var l = password.length;
 	var result = l * Math.log(symbols, 2);
 	return result;
 }
@@ -23,14 +23,14 @@ function getTimeToCrack(password, symbols, kps) {
 // Called when the timer for the clock ticks
 var onTimerTick = function() {
 	var now = new Date();
-	document.getElementById("spanClock").innerHTML = now;
+	document.getElementById("spanClock").innerHTML = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 }
 
 // Called when password text field changes
 var onPasswordChange = function(e) {
 	// event "e" is passed to this function
 	// e.target is the input, input.value is the password
-	var password = e.target.value;
+	var password = document.getElementById("inputPassword").value;
 
 	// Get KPS (defined by user input)
 	var kps = parseInt(document.getElementById("inputKPS").value);
@@ -59,6 +59,6 @@ var onPasswordChange = function(e) {
 	// "change" is fired when input is changed and then loses focus
 	// "keyup" is fired on every change, so we use "keyup" here
 	document.getElementById("inputPassword").addEventListener("keyup", onPasswordChange);
-
+	document.getElementById("inputKPS").addEventListener("keyup", onPasswordChange);
 	
 })();
