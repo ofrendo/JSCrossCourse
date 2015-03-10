@@ -28,6 +28,7 @@ var onTimerTick = function() {
 
 // Called when password text field changes
 var onPasswordChange = function(e) {
+	return;
 	// event "e" is passed to this function
 	// e.target is the input, input.value is the password
 	var password = document.getElementById("inputPassword").value;
@@ -53,12 +54,60 @@ var onPasswordChange = function(e) {
 
 (function() {
 	// Set and start the clock
-	setInterval(onTimerTick, 1000);
-
+	//setInterval(onTimerTick, 1000);
 	// Set event for when user types in a password. 
 	// "change" is fired when input is changed and then loses focus
 	// "keyup" is fired on every change, so we use "keyup" here
-	document.getElementById("inputPassword").addEventListener("keyup", onPasswordChange);
-	document.getElementById("inputKPS").addEventListener("keyup", onPasswordChange);
-	
-})();
+	//document.getElementById("inputPassword").addEventListener("keyup", onPasswordChange);
+	//document.getElementById("inputKPS").addEventListener("keyup", onPasswordChange);
+}());
+
+
+// RECURSION
+/*
+	Addiert die vorherige Zahl mit der vor vorherigen Zahl. Die Reihe ist 
+	f(n) = f(n-1) + f(n-2)
+	f(1) = f(2) = 1
+	Also: 1, 1, 2, 3, 5, 8, 13, 21, ...
+*/
+function fibonacci(n) {
+	if (n < 2){
+		return 1;
+	} else {
+		return fibonacci(n-2) + fibonacci(n-1);
+	}
+}
+
+/* 
+	Effiziente Suche mit O(log n) Komplexität. Array muss sortiert sein
+*/
+function binarySearch(a, searchValue, low, high) {
+	if (high < low) {
+		return null;
+	}
+
+	var mid = Math.floor((low+high) / 2);
+
+	if (searchValue === a[mid]) {
+		return mid;
+	}
+
+	if (searchValue < a[mid]) {
+		return binarySearch(a, searchValue, low, mid-1);
+	}
+	else {
+		return binarySearch(a, searchValue, mid+1, high)
+	}
+
+}
+
+// Functional for loop
+//loop(array, function(i, elem) {
+//
+//});
+
+function loop(array, fn) {
+	for (var i = 0; i < array.length; i++) {
+		fn( i, array[i] );
+	}
+}
