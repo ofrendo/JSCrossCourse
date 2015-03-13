@@ -28,7 +28,6 @@ var onTimerTick = function() {
 
 // Called when password text field changes
 var onPasswordChange = function(e) {
-	return;
 	// event "e" is passed to this function
 	// e.target is the input, input.value is the password
 	var password = document.getElementById("inputPassword").value;
@@ -42,25 +41,56 @@ var onPasswordChange = function(e) {
 
 	// Calculate entropy and show the result to the user
 	var entropy = getEntropy(password, symbols);
-	document.getElementById("spanEntropy").innerHTML = entropy;
+	document.getElementById("spanEntropy").innerHTML = entropy + " Bit";
 
 	// Calculate time to crack
 	var timeToCrack = getTimeToCrack(password, symbols, kps);
-	document.getElementById("spanTimeToCrack").innerHTML = timeToCrack;
-}
+	document.getElementById("spanTimeToCrack").innerHTML = timeToCrack + "s";
+};
+
+var onMenuItemClick = function(e) {
+	// Set active menu item
+	select(".menuItem", function(menuItem) {
+		menuItem.classList.remove("active");
+	});
+	e.target.parentElement.classList.add("active");
+
+	// Show correct container divs
+	select(".contentContainer", function(div) {
+		div.classList.add("noShow");
+	});
+	document.getElementById(e.target.getAttribute("data-contentContainer")).classList.remove("noShow");
+
+};
 
 
 /* ON DOCUMENT LOAD */
-
 (function() {
+	// GENERAL PAGE STUFF
+	// Set event for clicking on menu items
+	select(".menuItem", function(item, i) {
+		item.addEventListener("click", onMenuItemClick);
+	});
+
 	// Set and start the clock
-	//setInterval(onTimerTick, 1000);
+	setInterval(onTimerTick, 1000);
+
+	// SECURITY
 	// Set event for when user types in a password. 
 	// "change" is fired when input is changed and then loses focus
 	// "keyup" is fired on every change, so we use "keyup" here
-	//document.getElementById("inputPassword").addEventListener("keyup", onPasswordChange);
-	//document.getElementById("inputKPS").addEventListener("keyup", onPasswordChange);
+	document.getElementById("inputPassword").addEventListener("keyup", onPasswordChange);
+	document.getElementById("inputKPS").addEventListener("keyup", onPasswordChange);
+
+	// RECURSION
+	document.getElementById("inputFibonacci").addEventListener("keyup", onFibonacci);
 }());
+
+// DOM MANIPULATION
+function select(query, fn) {
+	var elements = document.querySelectorAll(query);
+	loop(elements, fn);
+}
 
 
 // RECURSION
@@ -70,13 +100,22 @@ var onPasswordChange = function(e) {
 	f(1) = f(2) = 1
 	Also: 1, 1, 2, 3, 5, 8, 13, 21, ...
 */
-function fibonacci(n) {
-	if (n < 2){
-		return 1;
-	} else {
-		return fibonacci(n-2) + fibonacci(n-1);
-	}
+function onFibonacci(e) {
+	var n = document.getElementById("inputFibonacci").value;
+	var steps = [];
+	var result = fibonacci(n, function(n, result) {
+		steps[n] = result;
+	});
+	document.getElementById("spanFibonacci").innerHTML = steps;
+	return {result: result, steps: steps};
 }
+
+function fibonacci(n, stepFn) {
+	result = (n < 2) ? 1 : fibonacci(n-2, stepFn) + fibonacci(n-1, stepFn);
+	if (typeof(stepFn) == "function") stepFn(n, result);
+	return result;
+}
+
 
 /* 
 	Effiziente Suche mit O(log n) Komplexität. Array muss sortiert sein
@@ -108,6 +147,6 @@ function binarySearch(a, searchValue, low, high) {
 
 function loop(array, fn) {
 	for (var i = 0; i < array.length; i++) {
-		fn( i, array[i] );
+		fn( array[i], i );
 	}
 }

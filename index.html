@@ -4,11 +4,12 @@
 	<meta charset="ISO-8859-1">
 	<title>Password Checker</title>
 	<!-- JQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
 	<!-- own stuff -->
 	<link rel="stylesheet" href="style.css">
 </head>
@@ -17,32 +18,43 @@
 		<div class="header">
 			<nav>
 				<ul class="nav nav-pills pull-right">
-					<li class="active" role="presentation">
-						<a href="#">Home</a>
+					<li class="active menuItem" role="presentation">
+						<a href="#security" data-contentContainer="containerSecurity">Security</a>
 					</li>
-					<li role="presentation">
-						<a href="#">About</a>
-					</li>
-					<li role="presentation">
-						<a href="#">Contact</a>
+					<li class="menuItem" role="presentation">
+						<a href="#recursion" data-contentContainer="containerRecursion">Recursion</a>
 					</li>
 				</ul>
 			</nav>
 			<h3 class="text-muted">Password Checker</h3>
 		</div>
 		
-		<div class="content well">
+		<div id="containerSecurity" class="content well contentContainer">
 			<form class="form-horizontal">
 				<div class="form-group">
 	    			<label class="col-sm-2 control-label">Password</label>
 	    			<div class="col-sm-10">
-	      				<input type="password" class="form-control" id="inputPassword" placeholder="Enter password">
+	      				<input type="text" class="form-control" id="inputPassword" placeholder="Enter password">
 	    			</div>
 	  			</div>
 				<div class="form-group">
-	    			<label class="col-sm-2 control-label">Attempts per second</label>
+	    			<label class="col-sm-2 control-label">Keys per second</label>
 	    			<div class="col-sm-10">
-	      				<input type="text" class="form-control" id="inputKPS" placeholder="">
+	      				<input type="number" class="form-control" id="inputKPS" placeholder="Enter KPS" value=1000>
+	    			</div>
+	  			</div>
+	  			<div class="form-group">
+	    			<label class="col-sm-2 control-label">Character set</label>
+	    			<div class="col-sm-10">
+	      				<select class="form-control" id="selectAmountSymbols">
+	      					<option value="10">Numerisch (0-9) [10]</option>
+	      					<option value="16">Hexadezimal (0-9, A-F) [16]</option>
+	      					<option value="26">Alphabet (A-Z) [26]</option>
+	      					<option value="36">Alphanumerisch (0-9, A-Z) [36]</option>
+	      					<option value="62">Alphanumerisch mit Groß/Kleinschreibung (0-9, a-z, A-Z) [62]</option>
+	      					<option value="95">ASCII Zeichensatz [95]</option>
+	      					<option value="10">Erweiterter ASCII Zeichensatz [218]</option>
+	      				</select>
 	    			</div>
 	  			</div>
 				<div class="form-group">
@@ -65,12 +77,21 @@
 						</div>
 	    			</div>
 	  			</div>
-	  			<div class="form-group">
-	  				<div class="col-sm-10">
-	  					<canvas id="canvas" width="600" height="300" style="border:1px solid black"></canvas>
-	  				</div>
-				</div>
   			</form>
+		</div>
+
+		<div id="containerRecursion" class="content well contentContainer noShow">
+			<form class="form-horizontal">
+				<div class="form-group">
+	    			<label class="col-sm-2 control-label">Fibonacci sequence</label>
+	    			<div class="col-sm-1">
+	      				<input type="number" class="form-control" id="inputFibonacci" placeholder="n">
+	    			</div>
+	    			<div class="col-sm-9">
+	    				<span id="spanFibonacci"></span>
+	    			</div>
+	  			</div>
+	  		</form>
 		</div>
 
 		
