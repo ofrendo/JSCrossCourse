@@ -1,5 +1,12 @@
 /* UTILITY FUNCTIONS */ 
 
+// show an alert with the current date and time
+function showDate(){
+	var date = new Date();
+	var dateString = date.getDate() + "." + date.getMonth() + "." + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+	alert("Current date and time: " + dateString);
+}
+
 // Get entropy for a password (in bits)
 function getEntropy(password, symbols) {
 	// Length * Logarithm base 2 of possible symbols
@@ -17,14 +24,13 @@ function getTimeToCrack(password, symbols, kps) {
 	return result;
 }
 
-
 /* DOM MANIPULATION */
 
 // Called when the timer for the clock ticks
 var onTimerTick = function() {
 	var now = new Date();
 	document.getElementById("spanClock").innerHTML = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-}
+};
 
 // Called when password text field changes
 var onPasswordChange = function(e) {
@@ -84,6 +90,10 @@ var onMenuItemClick = function(e) {
 
 	// RECURSION
 	document.getElementById("inputFibonacci").addEventListener("keyup", onFibonacci);
+	
+	// SORT
+	document.getElementById("buttonGenerate").addEventListener("click", onGenerateArray);
+	document.getElementById("buttonSort").addEventListener("click", onBubbleSort);
 }());
 
 // DOM MANIPULATION
@@ -149,4 +159,81 @@ function loop(array, fn) {
 	for (var i = 0; i < array.length; i++) {
 		fn( array[i], i );
 	}
+}
+
+// SORT
+
+// functions for events
+function onGenerateArray(){
+	var n = document.getElementById("inputNoElem").value;
+	var min = document.getElementById("inputMin").value;
+	var max = document.getElementById("inputMax").value;
+	if(isNaN(n) || isNaN(min) || isNaN(max)) return alert("Invalid values!");
+	var arr = generateArray(parseInt(n), parseInt(min), parseInt(max));
+	document.getElementById("inputList").value = "" + arr;
+}
+
+function onBubbleSort(){
+	// create array
+	var list = document.getElementById("inputList").value;
+	var arr = list.split(",");
+	for(var i = 0; i < arr.length; i++){
+		if(isNaN(arr[i])) return alert("Invalid value in list!");
+		arr[i] = parseInt(arr[i]);
+	}
+	// sort array
+	var stack = bubbleSortVis(arr);
+	// create output
+	var str = "" + arr;
+	str = str.replace(/,/g, ", ");
+	document.getElementById("divSortedList").innerHTML = str;
+}
+
+// generates random array to use for sorting
+function generateArray(n, min, max){
+	var a = [];
+	for(var i = 0; i < n; i++) a.push(Math.floor(Math.random() * (max + 1 - min) + min));
+	return a;
+}
+
+// sorts an array using Bubblesort
+function bubbleSort(a)
+{
+    var swapped;
+    do {
+        swapped = false;
+        for (var i=0; i < a.length-1; i++) {
+            if (a[i] > a[i+1]) {
+                var temp = a[i];
+                a[i] = a[i+1];
+                a[i+1] = temp;
+                swapped = true;
+            }
+        }
+    } while (swapped);
+}
+
+// sorts an array using Bubblesort and fills a stack to use for visualization
+function bubbleSortVis(a)
+{
+    var swapped,
+		c = 0,
+		change;
+		stack = [{arr: a.slice()}];
+    do {
+        swapped = false;
+        for (var i=0; i < a.length-1; i++) {
+			change = false;
+            if (a[i] > a[i+1]) {
+                var temp = a[i];
+                a[i] = a[i+1];
+                a[i+1] = temp;
+                swapped = true;
+				change = true;
+            }
+			stack.push({c1: c, c2: i, change: change, arr: a.slice()});
+        }
+		c++;
+    } while (swapped);
+	return stack;
 }
