@@ -26,6 +26,21 @@ var onTimerTick = function() {
 	document.getElementById("spanClock").innerHTML = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 }
 
+var getTimeString = function(seconds) {
+	var years = Math.floor(seconds/(60*60*24*365));
+	var days = Math.floor(seconds/(60*60*24)) % 365;
+	var hours = parseInt(seconds/3600) % 24;
+	var minutes = parseInt(seconds/60) % 60;
+	var seconds = parseInt(seconds % 60);
+
+	var result =  (years == 0 ? " " : years + "y ") +
+				  (days == 0 ? " " : days + "d ") + 
+				  hours + "h " +
+				  minutes + "m " +
+				  seconds + "s";
+	return result;
+}
+
 // Called when password text field changes
 var onPasswordChange = function(e) {
 	// event "e" is passed to this function
@@ -45,7 +60,7 @@ var onPasswordChange = function(e) {
 
 	// Calculate time to crack
 	var timeToCrack = getTimeToCrack(password, symbols, kps);
-	document.getElementById("spanTimeToCrack").innerHTML = timeToCrack + "s";
+	document.getElementById("spanTimeToCrack").innerHTML = getTimeString(timeToCrack);
 };
 
 var onMenuItemClick = function(e) {
@@ -81,9 +96,11 @@ var onMenuItemClick = function(e) {
 	// "keyup" is fired on every change, so we use "keyup" here
 	document.getElementById("inputPassword").addEventListener("keyup", onPasswordChange);
 	document.getElementById("inputKPS").addEventListener("keyup", onPasswordChange);
+	document.getElementById("selectAmountSymbols").addEventListener("change", onPasswordChange);
 
 	// RECURSION
 	document.getElementById("inputFibonacci").addEventListener("keyup", onFibonacci);
+	document.getElementById("inputBinarySearch").addEventListener("keyup", onBinarySearch)
 }());
 
 // DOM MANIPULATION
@@ -116,6 +133,21 @@ function fibonacci(n, stepFn) {
 	return result;
 }
 
+
+function onBinarySearch(e) {
+	// Note the values here will be strings because of weak types
+	var values = document.getElementById("inputBinarySearchValues").value;
+	values = values.split(", ");
+	for (var i = 0; i < values.length; i++) 
+		values[i] = parseInt(values[i])
+
+	var searchValue = parseInt(document.getElementById("inputBinarySearch").value);
+
+	var index = binarySearch(values, searchValue, 0, values.length-1);
+
+	document.getElementById("spanBinarySearch").innerHTML = "index=" + index;
+	return {index: index}
+}
 
 /* 
 	Effiziente Suche mit O(log n) Komplexität. Array muss sortiert sein
