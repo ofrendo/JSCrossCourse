@@ -1,0 +1,37 @@
+[] == {}						false
+"1" == 1						true
+[1] == "1"						true
+[] == ""						true
+[1] == [1]						false
+[4, [8, [15]]] == "4,8,15"		true
+true > false					true	(ist sowas auch in anderen sprachen normal?)
+
+16 > "a"						false
+16 < "a"						false
+16 == "a"						false
+16 != "a"						true
+
+[4, 8] < "4,6"					false
+[4, 8] < "4,9"					true
+
+var a = [1];
+var b = 1;
+var c = [1];
+a == b && b == c				true
+a == c							false
+
+!!(0);							false
+!!("0");						true
+
+undefined == false				false
+NaN == NaN						false
+
+if ( [] ) {
+  // this runs
+}
+if ( [] == true ) {
+  // this does not run
+}
+if ( [] == false ) {
+  // this does run
+}
