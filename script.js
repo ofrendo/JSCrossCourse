@@ -111,7 +111,9 @@ var onMenuItemClick = function(e) {
 	// SORT
 	document.getElementById("buttonGenerate").addEventListener("click", onGenerateArray);
 	document.getElementById("buttonSort").addEventListener("click", Sort.onSort);
-
+	
+	document.getElementById("buttonSVG").addEventListener("click", createShape);
+	
 	select("#selectSortingAlgorithm", function(selectSort) {
 		loop(Sort.algorithms, function(alg, i) {
 			var option = document.createElement("option");
