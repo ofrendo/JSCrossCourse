@@ -1,0 +1,25 @@
+@CHARSET "ISO-8859-1";
+
+.header {
+	margin-bottom:25px;
+	border-bottom:1px solid #dedede;
+}
+
+.header h3 {
+	line-height:40px;
+}
+
+.footer {
+	border-top:1px solid #dedede;
+	padding:10px;
+	margin-top:10px;
+}
+
+#spanClock, #buttonDate {
+	float:right;
+	margin-left:10px;
+}
+
+.noShow {
+	display: none;
+}

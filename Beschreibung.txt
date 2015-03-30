@@ -1,0 +1,23 @@
+Cooler motivierender Einleitungstext:
+- Wie erstellt man dynamische Webseiten mit JavaScript? Was genau sind SPAs?
+- Interessiert daran, wie Bibliotheken wie jQuery behind the scenes funktionieren?
+- gute Vorbereitung für SAPUI5
+
+Zielgruppe:
+- Für Anfänger und alle diejenigen, die sich nicht ganz sicher sind, wie JavaScript funktioniert
+- gerade auch für die, die direkt mit einem Framework wie SAPUI5 angefangen haben aber sich den Grundlagen nicht sicher sind
+
+Grundlagen Themen:
+- Kleine Wiederholung HTML/CSS
+- Hello World!
+- DOM Manipulation: Wie wird eine statische HTML Seite dynamisch?
+- Kontrollstrukturen: Warum ist [1] == "1" in JavaScript true?
+- Scope
+- Objektorientierung: Wie programmiert man in JavaScript objektorientiert? Sollte man es?
+- Rekursion
+- Funktionales Programmieren: Eine der prinzipiellen Stärken von JavaScript: Funktionen als Objekte, anonyme Funktionen, Callbacks
+
+Nach diesen Grundlagen: 
+- AJAX: Asynchrones Web Abfragen
+- Programmierparadigma: Best practices und design patterns
+- Neuere Methode: WebSockets. Bidirektionale Kommunikation mit einem Server, Bsp Chat oder Spieleprogrammierung im Web

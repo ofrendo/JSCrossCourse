@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Password Checker</title>
+	<!-- JQuery -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	
+	<!-- own stuff -->
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<nav>
+				<ul class="nav nav-pills pull-right">
+					<li class="active menuItem" role="presentation">
+						<a href="#security" data-contentContainer="containerSecurity">Security</a>
+					</li>
+					<li class="menuItem" role="presentation">
+						<a href="#recursion" data-contentContainer="containerRecursion">Recursion</a>
+					</li>
+					<li class="menuItem" role="presentation">
+						<a href="#sort" data-contentContainer="containerSort">Sort</a>
+					</li>
+				</ul>
+			</nav>
+			<h3 class="text-muted">Password Checker</h3>
+		</div>
+		
+		<div id="containerSecurity" class="content well contentContainer">
+			<form class="form-horizontal">
+				<div class="form-group">
+	    			<label class="col-sm-2 control-label">Password</label>
+	    			<div class="col-sm-10">
+	      				<input type="text" class="form-control" id="inputPassword" placeholder="Enter password">
+	    			</div>
+	  			</div>
+				<div class="form-group">
+	    			<label class="col-sm-2 control-label">Keys per second</label>
+	    			<div class="col-sm-10">
+	      				<input type="number" class="form-control" id="inputKPS" placeholder="Enter KPS" value=1000>
+	    			</div>
+	  			</div>
+	  			<div class="form-group">
+	    			<label class="col-sm-2 control-label">Character set</label>
+	    			<div class="col-sm-10">
+	      				<select class="form-control" id="selectAmountSymbols">
+	      					<option value="10">Numerisch (0-9) [10]</option>
+	      					<option value="16">Hexadezimal (0-9, A-F) [16]</option>
+	      					<option value="26">Alphabet (A-Z) [26]</option>
+	      					<option value="36">Alphanumerisch (0-9, A-Z) [36]</option>
+	      					<option value="62">Alphanumerisch mit Groß/Kleinschreibung (0-9, a-z, A-Z) [62]</option>
+	      					<option value="95">ASCII Zeichensatz [95]</option>
+	      					<option value="218">Erweiterter ASCII Zeichensatz [218]</option>
+	      				</select>
+	    			</div>
+	  			</div>
+				<div class="form-group">
+	    			<label class="col-sm-2 control-label">Entropy</label>
+	    			<div class="col-sm-10">
+	      				<span id="spanEntropy"></span>
+	    			</div>
+	  			</div>
+				<div class="form-group">
+	    			<label class="col-sm-2 control-label">Time to crack</label>
+	    			<div class="col-sm-10">
+	      				<span id="spanTimeToCrack"></span>
+	    			</div>
+	  			</div>
+	  			<div class="form-group">
+	    			<label class="col-sm-2 control-label">Strength</label>
+	    			<div class="col-sm-10">
+	      				<div class="progress">
+  							<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">Strong</div>
+						</div>
+	    			</div>
+	  			</div>
+  			</form>
+		</div>
+
+		<div id="containerRecursion" class="content well contentContainer noShow">
+			<form class="form-horizontal">
+				<div class="form-group">
+	    			<label class="col-sm-2 control-label">Fibonacci sequence</label>
+	    			<div class="col-sm-1">
+	      				<input type="number" class="form-control" id="inputFibonacci" placeholder="n">
+	    			</div>
+	    			<div class="col-sm-9">
+	    				<span id="spanFibonacci"></span>
+	    			</div>
+	  			</div>
+	  			<div class="form-group">
+	    			<label class="col-sm-2 control-label">Binary search sequence</label>
+	    			<div class="col-sm-5">
+	      				<input type="text" class="form-control" id="inputBinarySearchValues" placeholder="3,5,8,10,15">
+	    			</div>
+	    			<div class="col-sm-1">
+	      				<input type="text" class="form-control" id="inputBinarySearch" placeholder="8">
+	    			</div>
+	    			<div class="col-sm-4">
+	    				<span id="spanBinarySearch"></span>
+	    			</div>
+	  			</div>
+	  		</form>
+		</div>
+		
+		<div id="containerSort" class="content well contentContainer noShow">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<div class="row">
+						<label class="col-sm-2 control-label">Number of elements</label>
+						<div class="col-sm-4">
+							<input type="number" class="form-control" id="inputNoElem" value="10">
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-sm-2 control-label">Minimum</label>
+						<div class="col-sm-4">
+							<input type="number" class="form-control" id="inputMin" value="0">
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-sm-2 control-label">Maximum</label>
+						<div class="col-sm-4">
+							<input type="number" class="form-control" id="inputMax" value="10">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 col-sm-offset-2"><button id="buttonGenerate">Generate</button></div>
+					</div>
+					<div class="row">
+						<label class="col-sm-2 control-label">List</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="inputList" placeholder="Enter list of numbers separated by comma">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 col-sm-offset-2"><button id="buttonSort">Sort</button></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2 col-sm-offset-2"><select class="form-control" id="selectSortingAlgorithm"></select></div>
+					</div>
+					<div class="row">
+						<label class="col-sm-2 control-label">Sorted list</label>
+						<div class="col-sm-4" id="divSortedList"></div>
+					</div>
+	  			</div>
+	  		</form>
+		</div>
+
+		
+		<footer class="footer">
+			<span id="spanClock">00:00:00</span>
+			<button id="buttonDate" onClick="showDate()">Show full date</button>
+			<p>&copy; SAP SE</p>
+		</footer>
+	</div>
+	<script src="sort.js"></script>
+	<script src="script.js"></script>
+</body>
+</html>
