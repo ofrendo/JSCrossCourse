@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Password Checker</title>
+	<title>JavaScript CrossCourse</title>
 	<!-- JQuery -->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 
@@ -29,7 +29,7 @@
 					</li>
 				</ul>
 			</nav>
-			<h3 class="text-muted">Password Checker</h3>
+			<h3 class="text-muted">JavaScript CrossCourse</h3>
 		</div>
 		
 		<div id="containerSecurity" class="content well contentContainer">
@@ -91,7 +91,7 @@
 	      				<input type="number" class="form-control" id="inputFibonacci" placeholder="n">
 	    			</div>
 	    			<div class="col-sm-9">
-	    				<span id="spanFibonacci"></span>
+	    				<label class="control-label" id="labelFibonacci"></label>
 	    			</div>
 	  			</div>
 	  			<div class="form-group">
@@ -103,7 +103,7 @@
 	      				<input type="text" class="form-control" id="inputBinarySearch" placeholder="8">
 	    			</div>
 	    			<div class="col-sm-4">
-	    				<span id="spanBinarySearch"></span>
+	    				<label "control-label" id="labelBinarySearch"></label>
 	    			</div>
 	  			</div>
 	  		</form>
@@ -143,11 +143,19 @@
 						<div class="col-sm-4 col-sm-offset-2"><button id="buttonSort">Sort</button></div>
 					</div>
 					<div class="row">
-						<div class="col-sm-2 col-sm-offset-2"><select class="form-control" id="selectSortingAlgorithm"></select></div>
+						<label class="col-sm-2 control-label">Sorted list</label>
+						<label class="col-sm-4 control-label" id="labelSortedList"></label>
 					</div>
 					<div class="row">
-						<label class="col-sm-2 control-label">Sorted list</label>
-						<div class="col-sm-4" id="divSortedList"></div>
+						<label class="col-sm-2 control-label">Functional sorting</label>
+						<div class="col-sm-2"><select class="form-control" id="selectSortingAlgorithm"></select></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 col-sm-offset-2"><button id="buttonSortFunctional">Sort</button></div>
+					</div>
+					<div class="row">
+						<label class="col-sm-2 control-label">Sorted list functional</label>
+						<label class="col-sm-4 control-label" id="labelSortedListFunctional"></label>
 					</div>
 	  			</div>
 	  		</form>
@@ -156,7 +164,7 @@
 		
 		<footer class="footer">
 			<span id="spanClock">00:00:00</span>
-			<button id="buttonDate" onClick="showDate()">Show full date</button>
+			<button id="buttonDate" onClick="onButtonDateClick()">Show full date</button>
 			<p>&copy; SAP SE</p>
 		</footer>
 	</div>

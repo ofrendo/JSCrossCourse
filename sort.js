@@ -12,11 +12,11 @@ var Sort = (function() {
                 }
             }
         } while (swapped);
+        return a;
     }
 
     function selectionSort(a) {
         var min;
-        var stack = [{arr: a.slice()}];
 
         for (i=0; i < a.length; i++){
             var change = false;
@@ -26,7 +26,7 @@ var Sort = (function() {
 
             // check the rest of the array to see if anything is smaller
             for (j=i+1; j < a.length; j++){
-                if (items[j] < items[min]){
+                if (a[j] < a[min]){
                     min = j;
                 }
             }
@@ -38,11 +38,8 @@ var Sort = (function() {
                 a[min] = temp;
                 change = true;
             }
-
-            stack.push({c1: i, c2: min, change: change, arr: a.slice()});
         }
-        //return items;
-        return stack;
+        return a;
     }
 
     // Merge function used for merge sort
@@ -90,7 +87,6 @@ var Sort = (function() {
         var value,                      // the value currently being compared
             i,                          // index into unsorted section
             j;                          // index into sorted section
-        var stack = [{arr: a.slice()}];
         var change = false;
 
         for (i=0; i < a.length; i++) {
@@ -109,11 +105,9 @@ var Sort = (function() {
             }
 
             a[j+1] = value;
-            stack.push({c1: i, c2: j, change: change, arr: a.slice()});
         }
         
-        //return a;
-        return stack;
+        return a;
     }
 
     var module = {};
@@ -124,25 +118,289 @@ var Sort = (function() {
         {name: "Quicksort", fn: quickSort},
         {name: "Insertionsort", fn: insertionSort}
     ];
-    module.onSort = function(e) {
-        var selectSort = document.getElementById("selectSortAlgorithm");
-        var index = selectSort.options[selectSort.selectedIndex].value;
-        var alg = module.algorithms[index];
-        visualizeSorting(alg.fn);
+    module.doSort = function(arr, name) {
+        var algFn;
+        loop(module.algorithms, function(algoroithm) {
+            if (algorithm === name) 
+                algFn = algorithm.fn;
+        });
+
+        return algFn(arr);      
     };
 
-    module.visualizeSorting = function(fn) {
-        //Get array somehow
+    module.onSort = function(e) {
+        var selectSort = document.getElementById("selectSortingAlgorithm");
+        var index = selectSort.options[selectSort.selectedIndex].value;
+        var alg = module.algorithms[index];
+        module.visualizeSorting(alg.fn);
+    };
 
-        loop(stack, function(instruction) {
-            //c1 is instruction counter
-            //c2 is index being changed
-            //change is boolean indicating whether change took place
-            //arr is current state of array
-
-        });
+    module.visualizeSorting = function(sortFn) {
+        // create array
+        var list = document.getElementById("inputList").value;
+        var arr = list.split(",");
+        for(var i = 0; i < arr.length; i++){
+            if(isNaN(arr[i])) return alert("Invalid value in list!");
+            arr[i] = parseInt(arr[i]);
+        }
+        // sort array
+        arr = sortFn(arr);
+        // create output
+        var str = arr.join();
+        str = str.replace(/,/g, ", ");
+        document.getElementById("labelSortedListFunctional").innerHTML = str;
     };
 
     return module;
 })();
 
+
+
+
+
+
+
+
+
+
+
+var element = document.getElementById("myElement"); 
+var parentElement = element.parentElement; 
+element.classList.add("myClass");
+
+
+
+var elements = document.querySelectorAll(".myClass");
+
+function onClick(e) {
+	// do stuff
+}
+element.addEventListener("click", onClick);
+
+element.removeEventListener("click", onClick);
+"buttonDate"
+
+Date 
+
+var dropdown = document.getElementById("selectAmountSymbols");
+var symbols = dropdown.options[dropdown.selectedIndex].value;
+
+
+function recursion() {
+	recursion(); 
+}
+recursion(); 
+
+
+function recursion2(value) {
+	if (value >= 5) {
+		console.log("Value: " + value);
+		return;
+	}
+	value++;
+	recursion2(value);
+}
+recursion2(1);
+
+
+
+
+
+function f() {
+	// do stuff
+}
+f.variable = 123;
+
+
+function calc(p1, p2, operation) {
+	return operation(p1, p2);
+}
+function add(p1, p2) {
+	return p1+p2;
+}
+calc(3, 5, add); // 8
+
+
+
+function calc(p1, p2, operation) {
+	return operation(p1, p2);
+}
+calc(3, 5, function(p1, p2) {
+	return p1+p2;
+});
+
+
+
+
+
+
+element.addEventListener("click", onClick1);
+function onClick1(e) {	
+	// do stuff
+}
+
+var onClick2 = function(e) {	
+	//do stuff
+}
+element.addEventListener("click", onClick2);
+
+
+
+element.addEventListener("click", function(e) {	
+	//do stuff
+});
+
+
+
+
+
+
+(function() {
+	// do stuff
+})();
+
+
+
+(function($) {
+	// do stuff with $ as jQuery
+})(jQuery);
+
+
+var Module = (function() {
+	var privateVariable = 123;
+	
+	module = {};
+	module.publicVariable = 456;
+	module.publicFunction = function() {
+		//do stuff	
+	};
+	
+	return module;
+})();
+
+
+
+
+loop([4, 9, 13], function(element, index) {
+	console.log(element); //4, 9, 13 in drei Zeilen
+});
+Sort.doSort("Bubblesort", [9, 13, 4]);
+
+function first() {
+	var a = 1;
+	second(); 
+	function second() { 
+		third(); 
+		function third() { 
+			var a = 3;			
+			fourth(); 
+			function fourth() { 
+				console.log(a); // 3
+			}
+		} 
+	}
+}
+first();
+
+
+	
+function object() { 
+	var privateVariable = null; 
+	return {
+		getV: function() { return privateVariable; },
+		setV: function(value) { privateVariable = value; }
+	}
+}
+object.setV(123);
+object.getV(); // 123
+
+
+this 
+
+
+
+
+function MyObject () { 
+	this.variable = 123; 
+	this.onClickHandler = function(e) {
+		console.log(e);
+		console.log(this.variable);
+	};
+}
+
+var o = new MyObject();
+o.onClickHandler(1); //1 und 123
+
+document.body.addEventListener("click", o.onClickHandler); 
+//Bei Click wird MouseEvent und undefined ausgegeben
+
+
+
+
+function MyObject () { 
+	var self = this;
+	this.variable = 123; 
+	this.onClickHandler = function(e) {
+		console.log(e);
+		console.log(self.variable);
+	};
+}
+var o = new MyObject();
+o.onClickHandler(1); //1 und 123
+
+document.body.addEventListener("click", o.onClickHandler); 
+//Bei Click wird MouseEvent und 123 ausgegeben
+
+
+
+function MyObject () { 
+	this.variable = 123; 
+	this.onClickHandler = function(e) {
+		console.log(e);
+		console.log(this.variable);
+	};
+}
+
+var o = new MyObject();
+o.onClickHandler(1); //1 und 123
+
+document.body.addEventListener("click", function(e) {
+	o.onClickHandler.call(o, e); //Erstes Argument ist Kontext, danach die Parameter
+	//o.onClickHandler.apply(o, [e]); //apply hat den gleichen Effekt, benutzt für Parameter Array}); //Bei Click wird MouseEvent und 123 ausgegeben
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
