@@ -148,14 +148,14 @@ function onAjaxSend(){
 	var success = function(response){
 		alert(response);
 	}
-	var data = "message=" + msg;
+	var data = {message: msg};
 	sendRequest('POST', 'http://jscc.herokuapp.com/echo', success, data);
 }
 
 // perform ajax request
 var http_request = false;
 
-function sendRequest(method, url, success, data) {
+function sendRequest(method, url, success, json) {
 	http_request = false;
 	if (window.XMLHttpRequest) { // Mozilla, Safari,...
 		http_request = new XMLHttpRequest();
@@ -183,7 +183,11 @@ function sendRequest(method, url, success, data) {
 		}
 	};
 	http_request.open(method, url, true);
-	http_request.send(data);
+	if(json){
+		http_request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		json = JSON.stringify(json);
+	}
+	http_request.send(json);
 }
 
 
