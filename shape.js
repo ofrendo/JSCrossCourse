@@ -1,26 +1,8 @@
-var getUID = (function(){
-	var id = 0;
-	return function(){
-		return id++;
-	};
-})();
-
 // Shape - superclass
 function Shape(x, y){
 	this.x = x || 0;
 	this.y = y || 0;
 	this.color = "000000";
-	var id = getUID();
-	
-	this.move = function(dx, dy) {
-		this.x += dx;
-		this.y += dy;
-		console.info('Shape moved.');
-	};
-	
-	this.getName = function(){
-		return "o" + id;
-	}
 }
 
 // Rectangle
@@ -40,6 +22,7 @@ Rectangle.prototype.paint = function(){
 	rect.setAttribute("y", this.x);
 	rect.setAttribute("style", "fill:#" + this.color);
 	document.getElementById("svg").appendChild(rect);
+	this.element = rect;
 };
 
 // Circle
@@ -57,6 +40,7 @@ Circle.prototype.paint = function(){
 	circle.setAttribute("cy", this.x);
 	circle.setAttribute("style", "fill:#" + this.color);
 	document.getElementById("svg").appendChild(circle);
+	this.element = circle;
 };
 
 function createShape(){

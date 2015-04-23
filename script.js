@@ -3,6 +3,7 @@
 // show an alert with the current date and time
 function onButtonDateClick(){
 
+	
 
 }
 
@@ -116,12 +117,63 @@ var onMenuItemClick = function(e) {
 		});
 	}); */
 	
+	// AJAX
+	document.getElementById("buttonAjaxSend").addEventListener("click", onAjaxSend);
+	
 }());
 
 // DOM MANIPULATION
 function select(query, fn) {
 
 	
+}
+
+// AJAX
+function onAjaxSend(){
+	var msg = document.getElementById("inputMsg").value;
+	var success = function(response){
+		alert(response);
+	}
+	var data = {message: msg};
+	sendRequest('POST', 'http://jscc.herokuapp.com/echo', success, data);
+}
+
+// perform ajax request
+var http_request = false;
+
+function sendRequest(method, url, success, json) {
+	http_request = false;
+	if (window.XMLHttpRequest) { // Mozilla, Safari,...
+		http_request = new XMLHttpRequest();
+	} else if (window.ActiveXObject) { // IE <= 9
+		try {
+			http_request = new ActiveXObject("Msxml2.XMLHTTP");
+		} catch (e) {
+			try {
+				http_request = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch (e) {}
+		}
+	}
+
+	if (!http_request) {
+		alert('Can\'t create HTTP-Request!');
+		return false;
+	}
+	http_request.onreadystatechange = function(){
+		if (http_request.readyState == 4) {
+			if (http_request.status == 200) {
+				success(http_request.responseText);
+			} else {
+				alert('An Error occurred with your AJAX-Request.');
+			}
+		}
+	};
+	http_request.open(method, url, true);
+	if(json){
+		http_request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		json = JSON.stringify(json);
+	}
+	http_request.send(json);
 }
 
 
