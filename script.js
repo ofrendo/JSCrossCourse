@@ -1,7 +1,7 @@
 /* UTILITY FUNCTIONS */ 
 
 // show an alert with the current date and time
-function showDate(){
+function onButtonDateClick(){
 	var date = new Date();
 	var dateString = date.getDate() + "." + date.getMonth() + "." + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 	alert("Current date and time: " + dateString);
@@ -110,10 +110,11 @@ var onMenuItemClick = function(e) {
 
 	// SORT
 	document.getElementById("buttonGenerate").addEventListener("click", onGenerateArray);
-	document.getElementById("buttonSort").addEventListener("click", Sort.onSort);
-	
 	document.getElementById("buttonSVG").addEventListener("click", createShape);
-	
+
+	document.getElementById("buttonSort").addEventListener("click", onBubbleSort);
+	document.getElementById("buttonSortFunctional").addEventListener("click", Sort.onSort);
+
 	select("#selectSortingAlgorithm", function(selectSort) {
 		loop(Sort.algorithms, function(alg, i) {
 			var option = document.createElement("option");
@@ -146,7 +147,7 @@ function onFibonacci(e) {
 	var result = fibonacci(n, function(n, result) {
 		steps[n] = result;
 	});
-	document.getElementById("spanFibonacci").innerHTML = steps;
+	document.getElementById("labelFibonacci").innerHTML = steps;
 	return {result: result, steps: steps};
 }
 
@@ -168,7 +169,8 @@ function onBinarySearch(e) {
 
 	var index = binarySearch(values, searchValue, 0, values.length-1);
 
-	document.getElementById("spanBinarySearch").innerHTML = "index=" + index;
+	document.getElementById("labelBinarySearch").innerHTML = "index=" + index;
+	
 	return {index: index}
 }
 
@@ -231,14 +233,14 @@ function onBubbleSort() {
 	// create output
 	var str = "" + arr;
 	str = str.replace(/,/g, ", ");
-	document.getElementById("divSortedList").innerHTML = str;
+	document.getElementById("labelSortedList").innerHTML = str;
 	return stack;
 }
 
 
 
 // generates random array to use for sorting
-function generateArray(n, min, max){
+function generateArray(n, min, max) {
 	var a = [];
 	for(var i = 0; i < n; i++) a.push(Math.floor(Math.random() * (max + 1 - min) + min));
 	return a;
@@ -246,8 +248,7 @@ function generateArray(n, min, max){
 
 
 // sorts an array using Bubblesort and fills a stack to use for visualization
-function bubbleSortVis(a)
-{
+function bubbleSortVis(a) {
     var swapped,
 		c = 0,
 		change;

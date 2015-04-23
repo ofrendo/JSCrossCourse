@@ -12,12 +12,11 @@ var Sort = (function() {
                 }
             }
         } while (swapped);
+        return a;
     }
 
     function selectionSort(a) {
         var min;
-        var stack = [{arr: a.slice()}];
-
         for (i=0; i < a.length; i++){
             var change = false;
 
@@ -26,7 +25,7 @@ var Sort = (function() {
 
             // check the rest of the array to see if anything is smaller
             for (j=i+1; j < a.length; j++){
-                if (items[j] < items[min]){
+                if (a[j] < a[min]){
                     min = j;
                 }
             }
@@ -38,11 +37,8 @@ var Sort = (function() {
                 a[min] = temp;
                 change = true;
             }
-
-            stack.push({c1: i, c2: min, change: change, arr: a.slice()});
         }
-        //return items;
-        return stack;
+        return a;
     }
 
     // Merge function used for merge sort
@@ -90,7 +86,6 @@ var Sort = (function() {
         var value,                      // the value currently being compared
             i,                          // index into unsorted section
             j;                          // index into sorted section
-        var stack = [{arr: a.slice()}];
         var change = false;
 
         for (i=0; i < a.length; i++) {
@@ -109,11 +104,9 @@ var Sort = (function() {
             }
 
             a[j+1] = value;
-            stack.push({c1: i, c2: j, change: change, arr: a.slice()});
         }
         
-        //return a;
-        return stack;
+        return a;
     }
 
     var module = {};
@@ -124,25 +117,39 @@ var Sort = (function() {
         {name: "Quicksort", fn: quickSort},
         {name: "Insertionsort", fn: insertionSort}
     ];
-    module.onSort = function(e) {
-        var selectSort = document.getElementById("selectSortAlgorithm");
-        var index = selectSort.options[selectSort.selectedIndex].value;
-        var alg = module.algorithms[index];
-        visualizeSorting(alg.fn);
+
+    module.doSort = function(arr, name) {
+        var algFn;
+        loop(module.algorithms, function(algoroithm) {
+            if (algorithm === name) 
+                algFn = algorithm.fn;
+        });
+
+        return algFn(arr);      
     };
 
-    module.visualizeSorting = function(fn) {
-        //Get array somehow
+    module.onSort = function(e) {
+        var selectSort = document.getElementById("selectSortingAlgorithm");
+        var index = selectSort.options[selectSort.selectedIndex].value;
+        var alg = module.algorithms[index];
+        module.visualizeSorting(alg.fn);
+    };
 
-        loop(stack, function(instruction) {
-            //c1 is instruction counter
-            //c2 is index being changed
-            //change is boolean indicating whether change took place
-            //arr is current state of array
-
-        });
+    module.visualizeSorting = function(sortFn) {
+        // create array
+        var list = document.getElementById("inputList").value;
+        var arr = list.split(",");
+        for(var i = 0; i < arr.length; i++){
+            if(isNaN(arr[i])) return alert("Invalid value in list!");
+            arr[i] = parseInt(arr[i]);
+        }
+        // sort array
+        arr = sortFn(arr);
+        // create output
+        var str = arr.join();
+        str = str.replace(/,/g, ", ");
+        document.getElementById("labelSortedListFunctional").innerHTML = str;
     };
 
     return module;
 })();
-
