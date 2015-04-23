@@ -366,37 +366,85 @@ o.onClickHandler(1); //1 und 123
 
 document.body.addEventListener("click", function(e) {
 	o.onClickHandler.call(o, e); //Erstes Argument ist Kontext, danach die Parameter
-	//o.onClickHandler.apply(o, [e]); //apply hat den gleichen Effekt, benutzt f�r Parameter Array}); //Bei Click wird MouseEvent und 123 ausgegeben
+	//o.onClickHandler.apply(o, [e]); //apply hat den gleichen Effekt, benutzt für Parameter Array}); //Bei Click wird MouseEvent und 123 ausgegeben
 }
 
 
 
 
+// SCOPE + CONTEXT QUIZ
+(function() {
+    if(true) {
+        var a = 5;
+    }
+    console.log(a); // 5
+})()
 
 
 
+(function() {
+    a = 3;
+    alert(a);
+})();
+console.log(a); // 3
 
 
 
+function setVariable() {
+	var a = "7";
+}
+setVariable();
+console.log(a); //reference error, a is not defined
 
 
 
-
-
-
+// Welche reihenfolge alerts?
+var a = 6;
+function test() {
+    var a = 7;
+    function again() {
+        var a = 8;
+        alert(a);  // First
+    }
+    again();
+    alert(a);  // Second
+}
+test();
+​alert(a);​  // Third
 
 
 
 	
+// Was passiert hier? Antwort: Closure	
+function getFunc() {
+    var a = 7;
+    return function(b) {
+        alert(a+b);
+    }
+}
+var f = getFunc();
+f(5);
 	
+
+
+//Weil: Function declaration hoisting
+function foo(a) {
+	a();
+    function a() {
+        console.log("in a");
+    }
+}
+
+foo(function(a) {
+	console.log("in anonymous")
+});
 	
-	
-	
-	
-	
-	
-	
-	
+// Um das nochmal zu veranschaulichen ein komplizierteres beispiel
+(function f(){
+    function f(){ return 1; }
+    return f();
+    function f(){ return 2; }
+  })();
 	
 	
 	
