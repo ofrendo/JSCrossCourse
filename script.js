@@ -85,6 +85,9 @@ var onMenuItemClick = function(e) {
 	// Set and start the clock
 	setInterval(onTimerTick, 1000);
 
+	// Set "show full date" button
+
+
 	// SECURITY LISTENERS
 	// Set event for when user types in a password. 
 	// "change" is fired when input is changed and then loses focus
@@ -119,6 +122,10 @@ var onMenuItemClick = function(e) {
 	
 	// AJAX
 	document.getElementById("buttonAjaxSend").addEventListener("click", onAjaxSend);
+	
+
+	//WEBSOCKETS
+
 	
 }());
 

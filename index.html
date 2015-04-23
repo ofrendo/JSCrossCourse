@@ -34,6 +34,9 @@
 					<li class="menuItem" role="presentation">
 						<a href="#ajax" data-contentContainer="containerAjax">AJAX</a>
 					</li>
+					<li class="menuItem" role="presentation">
+						<a href="#ws" data-contentContainer="containerWS">WebSockets</a>
+					</li>
 				</ul>
 			</nav>
 			<h3 class="text-muted">JavaScript CrossCourse</h3>
@@ -228,13 +231,30 @@
 			<svg id="svg" width="500" height="500"></svg>
 		</div>
 		
+		<div id="containerWS" class="content well contentContainer noShow">
+			<div class="row">
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="inputChatName" placeholder="Enter name" value="temp">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="inputChatMsg" placeholder="Enter message" value="tempMsg">
+				</div>
+				<div class="col-sm-2"><button class="btn btn-default" id="buttonChatSend">Send</button></div>
+			</div>
+			<div class="row">				
+				<div class="col-sm-12" id="divChatContent"></div>
+			</div>
+		</div>
+
 		<footer class="footer">
 			<span id="spanClock">00:00:00</span>
-			<button id="buttonDate">Show full date</button>
+			<button class="btn btn-default" id="buttonDate">Show full date</button>
 			<p>&copy; SAP SE</p>
 		</footer>
 	</div>
-	<script src="sort.js"></script>
-	<script src="script.js"></script>
+	<script src="sort_solution.js"></script>
+	<script src="script_solution.js"></script>
 </body>
 </html>

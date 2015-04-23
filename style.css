@@ -23,3 +23,8 @@
 .noShow {
 	display: none;
 }
+
+#divChatContent {
+	height: 400px;
+	overflow-y: scroll;
+}

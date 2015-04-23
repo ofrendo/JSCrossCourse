@@ -102,6 +102,10 @@ var onMenuItemClick = function(e) {
 	// Set and start the clock
 	setInterval(onTimerTick, 1000);
 
+	// Set "show full date" button
+	document.getElementById("buttonDate").addEventListener("click", onButtonDateClick);
+
+
 	// SECURITY
 	// Set event for when user types in a password. 
 	// "change" is fired when input is changed and then loses focus
@@ -134,6 +138,23 @@ var onMenuItemClick = function(e) {
 	// AJAX
 	document.getElementById("buttonAjaxSend").addEventListener("click", onAjaxSend);
 	
+
+	//WEBSOCKETS
+	var ws = new WebSocket("ws://jscc.herokuapp.com"); //Open connection 
+
+	ws.onmessage = function(event) {
+		var data = JSON.parse(event.data);
+		document.getElementById("divChatContent").innerHTML += data.name + ": " + data.msg + "<br>";
+	};
+
+	document.getElementById("buttonChatSend").addEventListener("click", function(e) { 
+		var name = document.getElementById("inputChatName").value;
+		var msg = document.getElementById("inputChatMsg").value;
+		var data = JSON.stringify({name: name, msg: msg});
+		ws.send(data);
+	});
+
+
 }());
 
 // DOM MANIPULATION
@@ -141,6 +162,7 @@ function select(query, fn) {
 	var elements = document.querySelectorAll(query);
 	loop(elements, fn);
 }
+
 
 // AJAX
 function onAjaxSend(){
