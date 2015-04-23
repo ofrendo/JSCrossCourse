@@ -1,47 +1,17 @@
 // Shape - superclass
 function Shape(x, y){
-	this.x = x || 0;
-	this.y = y || 0;
-	this.color = "000000";
+	
 }
 
 // Rectangle
 function Rectangle(x, y, dx, dy){
-  this.dx = dx;
-  this.dy = dy;
-  Shape.call(this, x, y); // call super constructor.
+	
 }
-
-Rectangle.prototype = Object.create(Shape.prototype);
-Rectangle.prototype.constructor = Rectangle;
-Rectangle.prototype.paint = function(){
-	var rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-	rect.setAttribute("width", this.dx);
-	rect.setAttribute("height", this.dy);
-	rect.setAttribute("x", this.y);
-	rect.setAttribute("y", this.x);
-	rect.setAttribute("style", "fill:#" + this.color);
-	document.getElementById("svg").appendChild(rect);
-	this.element = rect;
-};
 
 // Circle
 function Circle(x, y, r){
-  this.r = r;
-  Shape.call(this, x, y); // call super constructor.
+	
 }
-
-Circle.prototype = Object.create(Shape.prototype);
-Circle.prototype.constructor = Circle;
-Circle.prototype.paint = function(){
-	var circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
-	circle.setAttribute("r", this.r);
-	circle.setAttribute("cx", this.y);
-	circle.setAttribute("cy", this.x);
-	circle.setAttribute("style", "fill:#" + this.color);
-	document.getElementById("svg").appendChild(circle);
-	this.element = circle;
-};
 
 function createShape(){
 	var x = document.getElementById("inputX").value;
