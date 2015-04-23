@@ -2,8 +2,9 @@
 
 // show an alert with the current date and time
 function onButtonDateClick(){
-
-
+	var date = new Date();
+	var dateString = date.getDate() + "." + date.getMonth() + "." + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+	alert("Current date and time: " + dateString);
 }
 
 // Get entropy for a password (in bits)
@@ -48,15 +49,24 @@ var getTimeString = function(seconds) {
 
 // Called when password text field changes
 var onPasswordChange = function(e) {
-	// Get password (defined by user input)
+	// event "e" is passed to this function
+	// e.target is the input, input.value is the password
+	var password = document.getElementById("inputPassword").value;
 
 	// Get KPS (defined by user input)
+	var kps = parseInt(document.getElementById("inputKPS").value);
 
 	// Get amount of symbols (defined by user input)
+	var dropdown = document.getElementById("selectAmountSymbols");
+	var symbols = dropdown.options[dropdown.selectedIndex].value;
 
 	// Calculate entropy and show the result to the user
+	var entropy = getEntropy(password, symbols);
+	document.getElementById("spanEntropy").innerHTML = entropy + " Bit";
 
-	// Calculate time to crack and show the result to the user
+	// Calculate time to crack
+	var timeToCrack = getTimeToCrack(password, symbols, kps);
+	document.getElementById("spanTimeToCrack").innerHTML = getTimeString(timeToCrack);
 };
 
 var onMenuItemClick = function(e) {
@@ -77,14 +87,16 @@ var onMenuItemClick = function(e) {
 
 /* ON DOCUMENT LOAD */
 (function() {
-	// GENERAL PAGE LISTENERS
+	// GENERAL PAGE LISTENER
 	// Set event for clicking on menu items
-
+	select(".menuItem", function(item, i) {
+		item.addEventListener("click", onMenuItemClick);
+	});
 
 	// Set and start the clock
 	setInterval(onTimerTick, 1000);
 
-	// SECURITY LISTENERS
+	// SECURITY
 	// Set event for when user types in a password. 
 	// "change" is fired when input is changed and then loses focus
 	// "keyup" is fired on every change, so we use "keyup" here
@@ -92,20 +104,17 @@ var onMenuItemClick = function(e) {
 	document.getElementById("inputKPS").addEventListener("keyup", onPasswordChange);
 	document.getElementById("selectAmountSymbols").addEventListener("change", onPasswordChange);
 
-	// RECURSION LISTENERS
-	//Fibonacci
-
-
-	//Binary search
+	// RECURSION
+	document.getElementById("inputFibonacci").addEventListener("keyup", onFibonacci);
 	document.getElementById("inputBinarySearch").addEventListener("keyup", onBinarySearch)
 
-	// SORT LISTENERS
+	// SORT
 	document.getElementById("buttonGenerate").addEventListener("click", onGenerateArray);
 	document.getElementById("buttonSVG").addEventListener("click", createShape);
 
 	document.getElementById("buttonSort").addEventListener("click", onBubbleSort);
+	document.getElementById("buttonSortFunctional").addEventListener("click", Sort.onSort);
 
-	/* Uncomment this when working on the Sort module
 	select("#selectSortingAlgorithm", function(selectSort) {
 		loop(Sort.algorithms, function(alg, i) {
 			var option = document.createElement("option");
@@ -114,14 +123,14 @@ var onMenuItemClick = function(e) {
 			option.appendChild(text);
 			selectSort.appendChild(option);
 		});
-	}); */
+	});
 	
 }());
 
 // DOM MANIPULATION
 function select(query, fn) {
-
-	
+	var elements = document.querySelectorAll(query);
+	loop(elements, fn);
 }
 
 
@@ -133,13 +142,14 @@ function select(query, fn) {
 	Also: 1, 1, 2, 3, 5, 8, 13, 21, ...
 */
 function onFibonacci(e) {
-
-
+	var n = document.getElementById("inputFibonacci").value;
+	var result = fibonacci(n);
+	document.getElementById("labelFibonacci").innerHTML = result;
 }
 
 function fibonacci(n) {
-
-
+	result = (n < 2) ? 1 : fibonacci(n-2) + fibonacci(n-1);
+	return result;
 }
 
 
@@ -163,16 +173,34 @@ function onBinarySearch(e) {
 	Effiziente Suche mit O(log n) Komplexität. Array muss sortiert sein
 */
 function binarySearch(a, searchValue, low, high) {
+	if (high < low) {
+		return null;
+	}
 
+	var mid = Math.floor((low+high) / 2);
 
+	if (searchValue === a[mid]) {
+		return mid;
+	}
+
+	if (searchValue < a[mid]) {
+		return binarySearch(a, searchValue, low, mid-1);
+	}
+	else {
+		return binarySearch(a, searchValue, mid+1, high)
+	}
 
 }
 
 // Functional for loop
+//loop(array, function(i, elem) {
+//
+//});
+
 function loop(array, fn) {
-
-
-
+	for (var i = 0; i < array.length; i++) {
+		fn( array[i], i );
+	}
 }
 
 // SORT
