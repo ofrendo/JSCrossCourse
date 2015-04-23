@@ -3,7 +3,13 @@
 // show an alert with the current date and time
 function onButtonDateClick(){
 	var date = new Date();
-	var dateString = date.getDate() + "." + date.getMonth() + "." + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+	var d = date.getDate();
+	var m = date.getMonth();
+	var y = date.getFullYear();
+	var h = date.getHours();
+	var min = ("0" + date.getMinutes()).slice(-2);
+	var s = ("0" + date.getSeconds()).slice(-2);
+	var dateString = d + "." + m + "." + y + " " + h + ":" + min + ":" + s;
 	alert("Current date and time: " + dateString);
 }
 
@@ -142,7 +148,7 @@ function onAjaxSend(){
 	var success = function(response){
 		alert(response);
 	}
-	var data = "text=" + msg;
+	var data = "message=" + msg;
 	sendRequest('POST', 'http://jscc.herokuapp.com/echo', success, data);
 }
 
